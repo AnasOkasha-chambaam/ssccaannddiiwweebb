@@ -3,6 +3,7 @@ import ItemInfoAttribute from "./item_info/iteminfoattribute";
 export class rightinfo extends Component {
   constructor(props) {
     super(props);
+    // id
     this.state = {
       componentKey: this.props.item.id,
       currentValsObj: {},
