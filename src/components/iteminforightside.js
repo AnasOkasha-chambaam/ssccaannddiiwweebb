@@ -4,13 +4,19 @@ export class rightinfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentImage: 0,
-      componentKey:
-        "_" +
-        this.props.item.id +
-        (Math.random() * 2000).toFixed(0) +
-        (this.props.bigCart && this.props.bigCart === true ? "_big_cart" : ""),
+      componentKey: this.props.item.id,
+      currentValsObj: {},
     };
+    this.currentSelectedAtt = this.currentSelectedAtt.bind(this);
+  }
+  async currentSelectedAtt(currentSelectedVal) {
+    let newObj = {};
+    newObj = await { ...this.state.currentValsObj, ...currentSelectedVal };
+    await this.setState({
+      ...this.state,
+      currentValsObj: { ...this.state.currentValsObj, ...currentSelectedVal },
+    });
+    return newObj;
   }
   render() {
     let currentCurrencySymbol = this.props.currentCurrency.split(" ")[0];
@@ -27,6 +33,7 @@ export class rightinfo extends Component {
               key={att.name + "_" + ind}
               attribute={att}
               theKey={att.name + "__" + ind}
+              currentSelectedAtt={this.currentSelectedAtt}
             />
           );
         })}
@@ -55,7 +62,12 @@ export class rightinfo extends Component {
               return one.amount;
             })}
         </p>
-        <button className="add-remove-btn">ADD TO CART</button>
+        <button
+          className="add-remove-btn"
+          onClick={() => console.log(this.state.componentKey)}
+        >
+          ADD TO CART
+        </button>
         <p
           style={{ marginTop: "40px", fontSize: "16px" }}
           dangerouslySetInnerHTML={{

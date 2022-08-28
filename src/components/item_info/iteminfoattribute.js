@@ -9,14 +9,15 @@ export class iteminfoattribute extends PureComponent {
       this.props.attribute.items[0].value;
     this.state = { ...statate };
     this.attValueOnChangeHandler = this.attValueOnChangeHandler.bind(this);
+    this.props.currentSelectedAtt(statate);
   }
-  attValueOnChangeHandler(newValue) {
+  async attValueOnChangeHandler(newValue) {
     let statate = {};
     statate[`current${this.props.attribute.name}`] = newValue;
-    this.setState({ ...statate });
+    await this.setState({ ...statate });
+    await this.props.currentSelectedAtt(this.state);
   }
   render() {
-    console.log(this.props.attribute.name);
     return (
       <div
         className="item-attribute"

@@ -142,7 +142,6 @@ export default class App extends Component {
           currentCurrency,
           cartCurrentInfo,
         });
-        console.log(this.state.itemsOfCategories);
       });
   }
 
