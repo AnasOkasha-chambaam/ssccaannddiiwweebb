@@ -1,0 +1,261 @@
+/* Cart circle black #1D1F22 */
+@import url("https://fonts.googleapis.com/css2?family=Raleway&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+/* 1091/1440 */
+:root {
+  font-size: 16px;
+  --cart-black-circle: #1d1f22;
+  --green: #5ece7b;
+  --black: #1d1f22;
+  --gray: #a6a6a6;
+  --light-gray: #a6a6a633;
+  --factor: 1;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: unset;
+  color: unset;
+  font-family: unset;
+}
+
+body {
+  font-family: Raleway;
+  font-style: normal;
+  font-size: 1rem;
+  color: #1d1f22;
+}
+.return-to-initial {
+  /* transition-property: transfrom, opacity;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in;
+  transform: none !important;
+  opacity: 1 !important; */
+  animation: slide-up 0.1s ease-in forwards;
+}
+
+.cart-icon::before {
+  /* Make a circle that containes the number of the current items on the cart*/
+  content: "";
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.the-hidden-list {
+  display: none;
+}
+
+.the-hidden-list.active {
+  opacity: 1 !important;
+  pointer-events: all !important;
+}
+
+/* Style current active radio items */
+.categories label.active a {
+  font-weight: 600;
+  color: var(--green);
+  position: relative;
+}
+
+.categories label.active a::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  width: 100%;
+  background-color: var(--green);
+  pointer-events: none;
+  transform: translateY(100%);
+}
+
+.item-cart:hover {
+  box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+}
+
+.box-with-border {
+  height: 24px;
+  min-width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  font-size: 13px;
+  border: 1.8px solid var(--black);
+  color: var(--black);
+  font-weight: 600;
+  padding: 3px;
+  cursor: pointer;
+  background-color: white;
+}
+
+.cart-dropdown label.box-with-border {
+  color: var(--gray) !important;
+  border-color: var(--gray) !important;
+  background-color: var(--light-gray);
+}
+
+.cart-dropdown label.box-with-border.active {
+  color: var(--black) !important;
+  background-color: unset;
+  border-color: var(--black) !important;
+}
+.btn {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  background-color: var(--green);
+  outline: none;
+  color: white;
+  border: none;
+}
+.btn.box-with-border {
+  background-color: white;
+  border: 1.8px solid var(--black);
+  color: var(--black);
+}
+
+.item-of-big-cart {
+  border-top: 1px solid #e5e5e5;
+  padding-top: 20px;
+}
+
+.item-of-big-cart .brand-name {
+  font-size: 1.875rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.item-of-big-cart .item-name {
+  font-size: 1.875rem;
+  font-weight: lighter;
+}
+
+.item-of-big-cart .item-price {
+  font-size: 1.5rem;
+  margin: 26px 0;
+}
+
+.item-of-big-cart label.box-with-border {
+  font-weight: normal;
+  width: 63px;
+  height: 45px;
+}
+.item-of-big-cart label.box-with-border:not(.active) {
+  color: white;
+  background-color: var(--black);
+}
+
+.item-of-big-cart .img {
+  position: relative;
+}
+
+.item-of-big-cart .img img {
+  width: 141px;
+  height: 185px;
+}
+
+.item-of-big-cart .forward-back-btn {
+  position: absolute;
+  color: white;
+  padding: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+}
+.item-of-big-cart .forward-back-btn:hover {
+  background-color: #1d1f2234;
+}
+
+.item-of-big-cart .forward-back-btn.forward {
+  right: 0;
+}
+.item-of-big-cart .forward-back-btn.back {
+  left: 0;
+}
+
+.item-of-big-cart .item-number {
+  font-size: 1.5rem;
+}
+
+.item-of-big-cart .item-number .box-with-border {
+  width: 40px;
+  height: 40px;
+}
+
+.item-of-big-cart .item-number .box-with-border span {
+  width: 15px !important;
+}
+
+.item-info:last-child {
+  font-size: 24px;
+}
+.item-info:last-child h2 {
+  margin-bottom: 9px;
+}
+
+.attribute.text.active {
+  background-color: var(--black);
+  color: white;
+}
+
+.attribute.swatch {
+  width: 32px;
+  height: 32px;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-color: transparent;
+  position: relative;
+}
+
+.attribute.swatch::before {
+  content: "";
+  width: 33px;
+  height: 33px;
+  position: absolute;
+  border: 2px solid transparent;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.attribute.swatch.active::before {
+  border-color: var(--green);
+}
+
+.att {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.add-remove-btn {
+  width: 100%;
+  height: 52px;
+  margin-top: 20px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: var(--green);
+  color: white;
+}
