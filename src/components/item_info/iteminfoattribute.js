@@ -5,7 +5,7 @@ export class iteminfoattribute extends PureComponent {
   constructor(props) {
     super(props);
     let statate = {};
-    statate[`current${this.props.attribute.name}`] =
+    statate[`${this.props.attribute.name}`] =
       this.props.attribute.items[0].value;
     this.state = { ...statate };
     this.attValueOnChangeHandler = this.attValueOnChangeHandler.bind(this);
@@ -13,7 +13,7 @@ export class iteminfoattribute extends PureComponent {
   }
   async attValueOnChangeHandler(newValue) {
     let statate = {};
-    statate[`current${this.props.attribute.name}`] = newValue;
+    statate[`${this.props.attribute.name}`] = newValue;
     await this.setState({ ...statate });
     await this.props.currentSelectedAtt(this.state);
   }
@@ -50,9 +50,7 @@ export class iteminfoattribute extends PureComponent {
               <li key={this.props.attribute.id + "___" + ind}>
                 <RadioAttValue
                   name={attValueObj.value}
-                  currentValue={
-                    this.state[`current${this.props.attribute.name}`]
-                  }
+                  currentValue={this.state[`${this.props.attribute.name}`]}
                   radioSharedName={this.props.attribute.name}
                   valueOnChangeHandler={this.attValueOnChangeHandler}
                   labelClassName={`box-with-border attribute ${this.props.attribute.type}`}

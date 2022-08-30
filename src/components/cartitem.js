@@ -108,7 +108,7 @@ export default class cartItem extends Component {
                 })}
             </p>
           </span>
-          <ul className="sizes" style={{ display: "flex", gap: "8px" }}>
+          {/* <ul className="sizes" style={{ display: "flex", gap: "8px" }}>
             {this.props.item.sizes.map((size) => {
               return (
                 <li key={size} className="size">
@@ -124,7 +124,7 @@ export default class cartItem extends Component {
                 </li>
               );
             })}
-          </ul>
+          </ul> */}
         </div>
         <div
           className="item-number-and-photo"
@@ -198,11 +198,11 @@ export default class cartItem extends Component {
             ) : (
               false
             )}
-            {this.props.item.imagesArr.map((imgInfo, index) => {
+            {this.props.item.gallery.map((imgInfo, index) => {
               return (
                 <img
-                  key={imgInfo[1] + this.state.componentKey}
-                  src={"./images/" + imgInfo[0]}
+                  key={this.props.item.id + index}
+                  src={imgInfo}
                   alt={this.props.item.name}
                   style={
                     index === this.state.currentImage

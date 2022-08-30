@@ -14,6 +14,7 @@ export class iteminfo extends Component {
     let pathname = window.location.pathname.split("/"),
       itemId = pathname[pathname.length - 1];
     this.state = { pathname, itemId };
+    this.addSelectedAttToItemInfo = this.addSelectedAttToItemInfo.bind(this);
   }
   async componentDidMount() {
     let theItem;
@@ -70,7 +71,15 @@ export class iteminfo extends Component {
       }
       i++;
     }
+    theItem = { ...theItem, cartSeletedAtt: {} };
     this.setState({ ...this.state, theItem });
+  }
+  async addSelectedAttToItemInfo(selectedAttStr) {
+    let cartSeletedAtt = (await this.state.theItem.cartSeletedAtt) || {};
+    cartSeletedAtt[selectedAttStr] = 1;
+    let theItem = { ...this.state.theItem, cartSeletedAtt };
+    this.setState({ ...this.state, theItem });
+    this.props.addItemWithNewAttToCart(this.state.theItem);
   }
   render() {
     // const search = this.props.location.search;
@@ -100,6 +109,7 @@ export class iteminfo extends Component {
             item={this.state.theItem}
             currentCurrency={this.props.currentCurrency}
             categoryItem={this.state.theItem}
+            addSelectedAttToItemInfo={this.addSelectedAttToItemInfo}
           />
         </div>
       );

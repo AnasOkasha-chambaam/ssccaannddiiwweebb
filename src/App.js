@@ -49,6 +49,7 @@ export default class App extends Component {
     this.turnCartListOn = this.turnCartListOn.bind(this);
     this.setCurrentCategory = this.setCurrentCategory.bind(this);
     this.hideCartList = this.hideCartList.bind(this);
+    this.addItemWithNewAttToCart = this.addItemWithNewAttToCart.bind(this);
   }
 
   componentDidMount() {
@@ -143,6 +144,18 @@ export default class App extends Component {
           cartCurrentInfo,
         });
       });
+  }
+
+  addItemWithNewAttToCart(theItem) {
+    let cartCurrentItems = [...this.state.cartCurrentItems];
+    cartCurrentItems.forEach((one, index) => {
+      if (one.id === theItem.id) {
+        delete cartCurrentItems[index];
+        cartCurrentItems = cartCurrentItems.filter((n) => n);
+      }
+    });
+    cartCurrentItems.push(theItem);
+    this.setState({ ...this.state, cartCurrentItems });
   }
 
   setAllCurrencies() {
@@ -278,6 +291,7 @@ export default class App extends Component {
                   <ItemInfo
                     currentCurrency={this.state.currentCurrency}
                     itemsOfCategories={this.state.itemsOfCategories}
+                    addItemWithNewAttToCart={this.addItemWithNewAttToCart}
                   />
                 }
               />

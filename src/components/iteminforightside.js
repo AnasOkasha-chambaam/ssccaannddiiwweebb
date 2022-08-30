@@ -65,7 +65,14 @@ export class rightinfo extends Component {
         </p>
         <button
           className="add-remove-btn"
-          onClick={() => console.log(this.state.componentKey)}
+          onClick={() => {
+            let selectedAtt = [],
+              attNames = Object.keys(this.state.currentValsObj).sort();
+            attNames.forEach((name) => {
+              selectedAtt.push(this.state.currentValsObj[name]);
+            });
+            this.props.addSelectedAttToItemInfo(JSON.stringify(selectedAtt));
+          }}
         >
           ADD TO CART
         </button>
