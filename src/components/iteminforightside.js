@@ -18,7 +18,7 @@ export class rightinfo extends Component {
       <div style={{ width: "292px", maxWidth: "292px" }}>
         {/* brand name */}
         <h2>{this.props.item.brand}</h2>
-        {/* name */}
+        {/* item name */}
         <p>{this.props.item.name}</p>
         {/* attributes */}
         {this.props.item.attributes.map((att, ind) => {
