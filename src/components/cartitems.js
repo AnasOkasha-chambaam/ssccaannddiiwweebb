@@ -14,6 +14,7 @@ export default class cartItems extends Component {
               cartItemOnChangeHandler={this.props.cartItemOnChangeHandler}
               currentCurrency={this.props.currentCurrency}
               className={this.props.className}
+              deleteTheItem={this.props.deleteTheItem}
             />
           );
         })}

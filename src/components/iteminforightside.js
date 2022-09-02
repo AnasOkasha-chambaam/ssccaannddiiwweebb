@@ -3,14 +3,21 @@ import ItemInfoAttribute from "./item_info/iteminfoattribute";
 export class rightinfo extends Component {
   constructor(props) {
     super(props);
+    // id
     this.state = {
-      currentImage: 0,
-      componentKey:
-        "_" +
-        this.props.item.id +
-        (Math.random() * 2000).toFixed(0) +
-        (this.props.bigCart && this.props.bigCart === true ? "_big_cart" : ""),
+      componentKey: this.props.item.id,
+      currentValsObj: {},
     };
+    this.currentSelectedAtt = this.currentSelectedAtt.bind(this);
+  }
+  async currentSelectedAtt(currentSelectedVal) {
+    let newObj = {};
+    newObj = await { ...this.state.currentValsObj, ...currentSelectedVal };
+    await this.setState({
+      ...this.state,
+      currentValsObj: { ...this.state.currentValsObj, ...currentSelectedVal },
+    });
+    return newObj;
   }
   render() {
     let currentCurrencySymbol = this.props.currentCurrency.split(" ")[0];
@@ -18,7 +25,7 @@ export class rightinfo extends Component {
       <div style={{ width: "292px", maxWidth: "292px" }}>
         {/* brand name */}
         <h2>{this.props.item.brand}</h2>
-        {/* item name */}
+        {/* name */}
         <p>{this.props.item.name}</p>
         {/* attributes */}
         {this.props.item.attributes.map((att, ind) => {
@@ -26,7 +33,9 @@ export class rightinfo extends Component {
             <ItemInfoAttribute
               key={att.name + "_" + ind}
               attribute={att}
-              theKey={att.name + "__" + ind}
+              theKey={att.name + "___" + ind}
+              currentSelectedAtt={this.currentSelectedAtt}
+              uniqueRadioSharedName={this.props.item.id}
             />
           );
         })}
@@ -55,7 +64,24 @@ export class rightinfo extends Component {
               return one.amount;
             })}
         </p>
-        <button className="add-remove-btn">ADD TO CART</button>
+        <button
+          className={"add-remove-btn" + (this.props.onCart ? " remove" : "")}
+          onClick={() => {
+            if (!this.props.onCart) {
+              let selectedAtt = [],
+                attNames = Object.keys(this.state.currentValsObj).sort();
+              attNames.forEach((name) => {
+                selectedAtt.push(this.state.currentValsObj[name]);
+              });
+              // this.props.addSelectedAttToItemInfo(JSON.stringify(selectedAtt));
+              this.props.addSelectedAttToItemInfo(this.state.currentValsObj);
+              return;
+            }
+            this.props.deleteTheItem(this.props.item.id);
+          }}
+        >
+          {this.props.onCart ? "REMOVE FROM CART" : "ADD TO CART"}
+        </button>
         <p
           style={{ marginTop: "40px", fontSize: "16px" }}
           dangerouslySetInnerHTML={{

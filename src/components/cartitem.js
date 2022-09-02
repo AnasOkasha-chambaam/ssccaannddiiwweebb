@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import RadioSize from "./radioitem";
+// import RadioSize from "./radioitem";
+import ItemInfoAttribute from "./item_info/iteminfoattribute";
 
 export default class cartItem extends Component {
   constructor(props) {
@@ -12,19 +13,20 @@ export default class cartItem extends Component {
         (Math.random() * 2000).toFixed(0) +
         (this.props.bigCart && this.props.bigCart === true ? "_big_cart" : ""),
     };
-    this.sizeOnChangeBridge = this.sizeOnChangeBridge.bind(this);
+    // this.sizeOnChangeBridge = this.sizeOnChangeBridge.bind(this);
     this.addPiece = this.addPiece.bind(this);
     this.abstractPiece = this.abstractPiece.bind(this);
     this.showNextImg = this.showNextImg.bind(this);
     this.showPrevImg = this.showPrevImg.bind(this);
+    this.currentSelectedAtt = this.currentSelectedAtt.bind(this);
   }
-  sizeOnChangeBridge(chosenSize) {
-    this.props.cartItemOnChangeHandler(
-      this.props.item.id,
-      "currentSize",
-      chosenSize
-    );
-  }
+  // sizeOnChangeBridge(chosenSize) {
+  //   this.props.cartItemOnChangeHandler(
+  //     this.props.item.id,
+  //     "currentSize",
+  //     chosenSize
+  //   );
+  // }
   addPiece() {
     let newValue = this.props.item.numberOfPieces + 1;
     while (newValue > this.props.item.onStock) {
@@ -40,8 +42,9 @@ export default class cartItem extends Component {
   abstractPiece() {
     let newValue = this.props.item.numberOfPieces - 1;
     while (newValue <= 0) {
-      alert();
-      newValue++;
+      alert("Do you want to delete the Item?");
+      this.props.deleteTheItem(this.props.item.id);
+      return;
     }
     this.props.cartItemOnChangeHandler(
       this.props.item.id,
@@ -51,19 +54,33 @@ export default class cartItem extends Component {
   }
   showNextImg() {
     let newValue = this.state.currentImage + 1;
-    while (newValue > this.props.item.imagesArr.length - 1) {
+    while (newValue > this.props.item.gallery.length - 1) {
       newValue = 0;
     }
     this.setState({ ...this.state, currentImage: newValue });
-    console.log("Next", this.state);
   }
   showPrevImg() {
     let newValue = this.state.currentImage - 1;
     while (newValue < 0) {
-      newValue = this.props.item.imagesArr.length - 1;
+      newValue = this.props.item.gallery.length - 1;
     }
     this.setState({ ...this.state, currentImage: newValue });
-    console.log("Prev", this.state.currentImage);
+  }
+  currentSelectedAtt(currentSelectedVal) {
+    this.setState({
+      ...this.state,
+      currentValsObj: {
+        ...this.props.item.cartSelectedAtt,
+        ...this.state.currentValsObj,
+        ...currentSelectedVal,
+      },
+    });
+
+    this.props.cartItemOnChangeHandler(this.props.item.id, "cartSelectedAtt", {
+      ...this.props.item.cartSelectedAtt,
+      ...this.state.currentValsObj,
+      ...currentSelectedVal,
+    });
   }
   render() {
     let currentCurrencySymbol = this.props.currentCurrency.split(" ")[0];
@@ -87,7 +104,11 @@ export default class cartItem extends Component {
           <span>
             <p
               className="brand-name"
-              style={{ display: "block", lineHeight: "27px" }}
+              style={{
+                display: "block",
+                lineHeight: "27px",
+                fontWeight: "bold",
+              }}
             >
               {this.props.item.brand}
             </p>
@@ -108,7 +129,23 @@ export default class cartItem extends Component {
                 })}
             </p>
           </span>
-          <ul className="sizes" style={{ display: "flex", gap: "8px" }}>
+          {/* Attributes */}
+          {this.props.item.attributes.map((att, ind) => {
+            return (
+              <ItemInfoAttribute
+                key={att.name + "__" + ind}
+                attribute={att}
+                uniqueRadioSharedName={
+                  (this.props.bigCart ? "bigCart_" : "cart_") +
+                  this.props.item.id
+                }
+                theKey={att.name + "_1_" + ind}
+                currentSelectedAtt={this.currentSelectedAtt}
+                currentValues={this.props.item.cartSelectedAtt}
+              />
+            );
+          })}
+          {/* <ul className="sizes" style={{ display: "flex", gap: "8px" }}>
             {this.props.item.sizes.map((size) => {
               return (
                 <li key={size} className="size">
@@ -124,7 +161,7 @@ export default class cartItem extends Component {
                 </li>
               );
             })}
-          </ul>
+          </ul> */}
         </div>
         <div
           className="item-number-and-photo"
@@ -186,23 +223,23 @@ export default class cartItem extends Component {
                   className="a-div forward forward-back-btn"
                   onClick={() => this.showNextImg()}
                 >
-                  {">"}
+                  {}
                 </span>
                 <span
                   className="a-div backward forward-back-btn"
                   onClick={() => this.showPrevImg()}
                 >
-                  {"<"}
+                  {}
                 </span>
               </>
             ) : (
               false
             )}
-            {this.props.item.imagesArr.map((imgInfo, index) => {
+            {this.props.item.gallery.map((imgInfo, index) => {
               return (
                 <img
-                  key={imgInfo[1] + this.state.componentKey}
-                  src={"./images/" + imgInfo[0]}
+                  key={this.props.item.id + index}
+                  src={imgInfo}
                   alt={this.props.item.name}
                   style={
                     index === this.state.currentImage

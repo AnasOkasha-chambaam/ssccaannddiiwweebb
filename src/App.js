@@ -49,6 +49,8 @@ export default class App extends Component {
     this.turnCartListOn = this.turnCartListOn.bind(this);
     this.setCurrentCategory = this.setCurrentCategory.bind(this);
     this.hideCartList = this.hideCartList.bind(this);
+    this.addItemWithNewAttToCart = this.addItemWithNewAttToCart.bind(this);
+    this.deleteTheItem = this.deleteTheItem.bind(this);
   }
 
   componentDidMount() {
@@ -142,12 +144,23 @@ export default class App extends Component {
           currentCurrency,
           cartCurrentInfo,
         });
-        console.log(this.state.itemsOfCategories);
       });
   }
 
+  addItemWithNewAttToCart(theItem) {
+    let cartCurrentItems = [...this.state.cartCurrentItems];
+    cartCurrentItems.forEach((one, index) => {
+      if (one.id === theItem.id) {
+        delete cartCurrentItems[index];
+        cartCurrentItems = cartCurrentItems.filter((n) => n);
+      }
+    });
+    theItem["numberOfPieces"] = 1;
+    cartCurrentItems.push(theItem);
+    this.setState({ ...this.state, cartCurrentItems });
+  }
+
   setAllCurrencies() {
-    console.log(this.state.cartCurrentItems);
     let allCurrencies = this.state.itemsOfCategories[
       this.state.currentCategory
     ][0].prices.map((price) => {
@@ -206,6 +219,12 @@ export default class App extends Component {
       currentCategory: newValue,
     });
   }
+  deleteTheItem(itemId) {
+    let cartCurrentItems = [...this.state.cartCurrentItems].filter((item) => {
+      return item.id !== itemId;
+    });
+    this.setState({ ...this.state, cartCurrentItems });
+  }
   render() {
     return (
       <ApolloProvider client={client}>
@@ -244,6 +263,7 @@ export default class App extends Component {
               currentCurrency={this.state.currentCurrency}
               hideCartList={this.hideCartList}
               cartCurrentInfo={this.state.cartCurrentInfo}
+              deleteTheItem={this.deleteTheItem}
             />
             <Routes>
               <Route
@@ -270,6 +290,7 @@ export default class App extends Component {
                     cartItemOnChangeHandler={this.cartItemOnChangeHandler}
                     currentCurrency={this.state.currentCurrency}
                     cartCurrentInfo={this.state.cartCurrentInfo}
+                    deleteTheItem={this.deleteTheItem}
                   />
                 }
               />
@@ -279,6 +300,9 @@ export default class App extends Component {
                   <ItemInfo
                     currentCurrency={this.state.currentCurrency}
                     itemsOfCategories={this.state.itemsOfCategories}
+                    addItemWithNewAttToCart={this.addItemWithNewAttToCart}
+                    cartCurrentItems={this.state.cartCurrentItems}
+                    deleteTheItem={this.deleteTheItem}
                   />
                 }
               />

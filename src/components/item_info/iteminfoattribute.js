@@ -5,18 +5,22 @@ export class iteminfoattribute extends PureComponent {
   constructor(props) {
     super(props);
     let statate = {};
-    statate[`current${this.props.attribute.name}`] =
-      this.props.attribute.items[0].value;
+    statate[`${this.props.attribute.name}`] =
+      this.props.currentValues &&
+      this.props.currentValues[`${this.props.attribute.name}`]
+        ? this.props.currentValues[`${this.props.attribute.name}`]
+        : this.props.attribute.items[0].value;
     this.state = { ...statate };
     this.attValueOnChangeHandler = this.attValueOnChangeHandler.bind(this);
+    this.props.currentSelectedAtt(statate);
   }
-  attValueOnChangeHandler(newValue) {
+  async attValueOnChangeHandler(newValue) {
     let statate = {};
-    statate[`current${this.props.attribute.name}`] = newValue;
-    this.setState({ ...statate });
+    statate[`${this.props.attribute.name}`] = newValue;
+    await this.setState({ ...statate });
+    await this.props.currentSelectedAtt(this.state);
   }
   render() {
-    console.log(this.props.attribute.name);
     return (
       <div
         className="item-attribute"
@@ -50,9 +54,17 @@ export class iteminfoattribute extends PureComponent {
                 <RadioAttValue
                   name={attValueObj.value}
                   currentValue={
-                    this.state[`current${this.props.attribute.name}`]
+                    this.props.currentValues &&
+                    this.props.attribute.id &&
+                    this.props.currentValues[this.props.attribute.id]
+                      ? this.props.currentValues[this.props.attribute.id]
+                      : this.state[`${this.props.attribute.name}`]
                   }
-                  radioSharedName={this.props.attribute.name}
+                  radioSharedName={
+                    this.props.attribute.name +
+                    "_" +
+                    this.props.uniqueRadioSharedName
+                  }
                   valueOnChangeHandler={this.attValueOnChangeHandler}
                   labelClassName={`box-with-border attribute ${this.props.attribute.type}`}
                   style={extraStyle}

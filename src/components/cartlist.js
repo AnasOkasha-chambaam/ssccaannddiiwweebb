@@ -54,6 +54,7 @@ export default class cartList extends Component {
             cartCurrentItems={this.props.cartCurrentItems}
             cartItemOnChangeHandler={this.props.cartItemOnChangeHandler}
             currentCurrency={this.props.currentCurrency}
+            deleteTheItem={this.props.deleteTheItem}
           />
           <p
             style={{
