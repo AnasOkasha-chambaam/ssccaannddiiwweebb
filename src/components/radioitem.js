@@ -39,7 +39,9 @@ export default class RadioItem extends Component {
           }
           style={{ display: "none" }}
           checked={checked}
-          onChange={() => this.props.valueOnChangeHandler(this.props.name)}
+          onChange={() => {
+            this.props.valueOnChangeHandler(this.props.name);
+          }}
         />
       </div>
     );

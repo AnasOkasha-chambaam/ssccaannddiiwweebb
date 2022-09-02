@@ -23,6 +23,7 @@ export default class bigCart extends Component {
             totalNoTaxes={this.props.cartCurrentInfo.totalNoTaxes()}
             taxes={this.props.cartCurrentInfo.taxes}
             quantity={this.props.cartCurrentInfo.quantity()}
+            deleteTheItem={this.props.deleteTheItem}
           />
         </div>
       );

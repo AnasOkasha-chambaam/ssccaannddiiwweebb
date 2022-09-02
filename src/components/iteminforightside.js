@@ -33,8 +33,9 @@ export class rightinfo extends Component {
             <ItemInfoAttribute
               key={att.name + "_" + ind}
               attribute={att}
-              theKey={att.name + "__" + ind}
+              theKey={att.name + "___" + ind}
               currentSelectedAtt={this.currentSelectedAtt}
+              uniqueRadioSharedName={this.props.item.id}
             />
           );
         })}
@@ -64,17 +65,22 @@ export class rightinfo extends Component {
             })}
         </p>
         <button
-          className="add-remove-btn"
+          className={"add-remove-btn" + (this.props.onCart ? " remove" : "")}
           onClick={() => {
-            let selectedAtt = [],
-              attNames = Object.keys(this.state.currentValsObj).sort();
-            attNames.forEach((name) => {
-              selectedAtt.push(this.state.currentValsObj[name]);
-            });
-            this.props.addSelectedAttToItemInfo(JSON.stringify(selectedAtt));
+            if (!this.props.onCart) {
+              let selectedAtt = [],
+                attNames = Object.keys(this.state.currentValsObj).sort();
+              attNames.forEach((name) => {
+                selectedAtt.push(this.state.currentValsObj[name]);
+              });
+              // this.props.addSelectedAttToItemInfo(JSON.stringify(selectedAtt));
+              this.props.addSelectedAttToItemInfo(this.state.currentValsObj);
+              return;
+            }
+            this.props.deleteTheItem(this.props.item.id);
           }}
         >
-          ADD TO CART
+          {this.props.onCart ? "REMOVE FROM CART" : "ADD TO CART"}
         </button>
         <p
           style={{ marginTop: "40px", fontSize: "16px" }}

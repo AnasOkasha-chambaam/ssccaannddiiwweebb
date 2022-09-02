@@ -6,7 +6,10 @@ export class iteminfoattribute extends PureComponent {
     super(props);
     let statate = {};
     statate[`${this.props.attribute.name}`] =
-      this.props.attribute.items[0].value;
+      this.props.currentValues &&
+      this.props.currentValues[`${this.props.attribute.name}`]
+        ? this.props.currentValues[`${this.props.attribute.name}`]
+        : this.props.attribute.items[0].value;
     this.state = { ...statate };
     this.attValueOnChangeHandler = this.attValueOnChangeHandler.bind(this);
     this.props.currentSelectedAtt(statate);
@@ -50,8 +53,18 @@ export class iteminfoattribute extends PureComponent {
               <li key={this.props.attribute.id + "___" + ind}>
                 <RadioAttValue
                   name={attValueObj.value}
-                  currentValue={this.state[`${this.props.attribute.name}`]}
-                  radioSharedName={this.props.attribute.name}
+                  currentValue={
+                    this.props.currentValues &&
+                    this.props.attribute.id &&
+                    this.props.currentValues[this.props.attribute.id]
+                      ? this.props.currentValues[this.props.attribute.id]
+                      : this.state[`${this.props.attribute.name}`]
+                  }
+                  radioSharedName={
+                    this.props.attribute.name +
+                    "_" +
+                    this.props.uniqueRadioSharedName
+                  }
                   valueOnChangeHandler={this.attValueOnChangeHandler}
                   labelClassName={`box-with-border attribute ${this.props.attribute.type}`}
                   style={extraStyle}

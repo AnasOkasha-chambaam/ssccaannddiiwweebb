@@ -71,15 +71,17 @@ export class iteminfo extends Component {
       }
       i++;
     }
-    theItem = { ...theItem, cartSeletedAtt: {} };
+    theItem = { ...theItem, cartSelectedAtt: {} };
     this.setState({ ...this.state, theItem });
   }
   async addSelectedAttToItemInfo(selectedAttStr) {
-    let cartSeletedAtt = (await this.state.theItem.cartSeletedAtt) || {};
-    cartSeletedAtt[selectedAttStr] = 1;
-    let theItem = { ...this.state.theItem, cartSeletedAtt };
-    this.setState({ ...this.state, theItem });
-    this.props.addItemWithNewAttToCart(this.state.theItem);
+    let cartSelectedAtt = {
+      ...this.state.theItem.cartSelectedAtt,
+      ...selectedAttStr,
+    };
+    let theItem = { ...this.state.theItem, cartSelectedAtt: cartSelectedAtt };
+    await this.setState({ ...this.state, theItem: theItem });
+    this.props.addItemWithNewAttToCart({ ...this.state.theItem });
   }
   render() {
     // const search = this.props.location.search;
@@ -110,6 +112,12 @@ export class iteminfo extends Component {
             currentCurrency={this.props.currentCurrency}
             categoryItem={this.state.theItem}
             addSelectedAttToItemInfo={this.addSelectedAttToItemInfo}
+            onCart={
+              this.props.cartCurrentItems.filter((one) => {
+                return one.id === this.state.itemId;
+              }).length !== 0
+            }
+            deleteTheItem={this.props.deleteTheItem}
           />
         </div>
       );
