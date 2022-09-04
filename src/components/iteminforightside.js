@@ -65,8 +65,12 @@ export class rightinfo extends Component {
             })}
         </p>
         <button
-          className={"add-remove-btn" + (this.props.onCart ? " remove" : "")}
+          className={
+            "add-remove-btn" +
+            (this.props.onCart || !this.props.item.inStock ? " remove" : "")
+          }
           onClick={() => {
+            if (!this.props.item.inStock) return;
             if (!this.props.onCart) {
               let selectedAtt = [],
                 attNames = Object.keys(this.state.currentValsObj).sort();
@@ -80,7 +84,11 @@ export class rightinfo extends Component {
             this.props.deleteTheItem(this.props.item.id);
           }}
         >
-          {this.props.onCart ? "REMOVE FROM CART" : "ADD TO CART"}
+          {!this.props.item.inStock
+            ? "OUT OF STOCK"
+            : this.props.onCart
+            ? "REMOVE FROM CART"
+            : "ADD TO CART"}
         </button>
         <p
           style={{ marginTop: "40px", fontSize: "16px" }}

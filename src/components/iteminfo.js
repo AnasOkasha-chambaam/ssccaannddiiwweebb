@@ -28,6 +28,7 @@ export class iteminfo extends Component {
               name
               description
               gallery
+              inStock
               attributes {
                 id
                 type

@@ -67,13 +67,14 @@ export default class cartList extends Component {
           >
             Total{" "}
             <span className="total-price" style={{ marginBottom: "2px" }}>
-              {this.props.cartCurrentInfo.totalNoTaxes
-                ? (
-                    this.props.cartCurrentInfo.totalNoTaxes() +
-                    this.props.cartCurrentInfo.totalNoTaxes() *
-                      this.props.cartCurrentInfo.taxes
-                  ).toFixed(2)
-                : ""}
+              {this.props.currentCurrency.split(" ")[0] +
+                (this.props.cartCurrentInfo.totalNoTaxes
+                  ? (
+                      this.props.cartCurrentInfo.totalNoTaxes() +
+                      this.props.cartCurrentInfo.totalNoTaxes() *
+                        this.props.cartCurrentInfo.taxes
+                    ).toFixed(2)
+                  : "")}
             </span>
           </p>
           <ul

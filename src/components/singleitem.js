@@ -19,8 +19,16 @@ export default class singleitem extends Component {
             transitionProperty: "box-shadow",
             transitionDuration: "0.3s",
             transitionTimingFunction: "ease-in-out",
+            position: "relative",
           }}
         >
+          <div
+            className={
+              "hide" + (!this.props.categoryItem.inStock ? " out-of-stock" : "")
+            }
+          >
+            OUT OF STOCK
+          </div>
           <img
             src={this.props.categoryItem.gallery[0]}
             alt="poqoguweh pwoih"
@@ -29,8 +37,21 @@ export default class singleitem extends Component {
             style={{ display: "block", objectFit: "contain" }}
           />
           <div>
-            <p style={{ padding: "4px 0" }}>{this.props.categoryItem.name}</p>
-            <p style={{ fontWeight: "600", padding: "4px 0" }}>
+            <p
+              style={{
+                padding: "4px 0",
+                color: !this.props.categoryItem.inStock ? "#8D8F9A" : "auto",
+              }}
+            >
+              {this.props.categoryItem.name}
+            </p>
+            <p
+              style={{
+                fontWeight: "600",
+                padding: "4px 0",
+                color: !this.props.categoryItem.inStock ? "#8D8F9A" : "auto",
+              }}
+            >
               {currentCurrencySymbol}{" "}
               {this.props.categoryItem.prices
                 .filter((one) => {

@@ -24,6 +24,7 @@ export default class cartItems extends Component {
             totalNoTaxes={this.props.totalNoTaxes}
             taxes={this.props.taxes}
             quantity={this.props.quantity}
+            currentCurrency={this.props.currentCurrency}
           />
         ) : (
           ""
