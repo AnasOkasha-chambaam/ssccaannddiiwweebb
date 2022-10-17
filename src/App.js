@@ -279,6 +279,8 @@ export default class App extends Component {
                       this.state.itemsOfCategories[this.state.currentCategory]
                     }
                     currentCurrency={this.state.currentCurrency}
+                    cartCurrentItems={this.state.cartCurrentItems}
+                    deleteTheItem={this.deleteTheItem}
                   />
                 }
               />

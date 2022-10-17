@@ -313,3 +313,21 @@ body {
   font-size: 24px;
   color: #8d8f9a;
 }
+
+.add-to-cart-icon {
+  height: unset;
+  width: unset;
+  /* height: 52px;
+  width: 52px; */
+  position: absolute;
+  top: 82.5%;
+  right: 12%;
+  left: unset;
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: 0.3s;
+}
+.add-to-cart-icon:hover {
+  transform: translateY(-50%) scale(1.1);
+}

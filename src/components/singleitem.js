@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import AddToCartIcon from "./addtocarticon";
 
-export default class singleitem extends Component {
+export default class SingleItem extends Component {
   render() {
     let currentCurrencySymbol = this.props.currentCurrency.split(" ")[0];
     return (
@@ -10,7 +11,7 @@ export default class singleitem extends Component {
           className="item-cart"
           style={{
             // backgroundColor: "green",
-            width: "100%",
+            minWidth: "333px",
             height: "470px",
             padding: "16px",
             display: "flex",
@@ -22,6 +23,31 @@ export default class singleitem extends Component {
             position: "relative",
           }}
         >
+          <div
+            className={
+              "hide add-to-cart-icon" +
+              (this.props.categoryItem.inStock ? " out-of-stock" : "")
+            }
+            onClick={(e) => {
+              e.preventDefault();
+              console.log("Toggle");
+              if (!this.props.categoryItem.inStock) return;
+              console.log(this.props.onCart);
+              if (!this.props.onCart) {
+                let selectedAtt = [],
+                  attNames = Object.keys(this.state.currentValsObj).sort();
+                attNames.forEach((name) => {
+                  selectedAtt.push(this.state.currentValsObj[name]);
+                });
+                // this.props.addSelectedAttToItemInfo(JSON.stringify(selectedAtt));
+                this.props.addSelectedAttToItemInfo(this.state.currentValsObj);
+                return;
+              }
+              this.props.deleteTheItem(this.props.item.id);
+            }}
+          >
+            <AddToCartIcon cartItemsNumber={false} />
+          </div>
           <div
             className={
               "hide" + (!this.props.categoryItem.inStock ? " out-of-stock" : "")

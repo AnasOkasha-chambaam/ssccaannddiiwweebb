@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ListOfItems from "./listofitems";
-export default class itemslist extends Component {
+export default class ItemsList extends Component {
   render() {
     return (
       <div
@@ -23,6 +23,8 @@ export default class itemslist extends Component {
         <ListOfItems
           currentCategoryItemsArr={this.props.currentCategoryItemsArr}
           currentCurrency={this.props.currentCurrency}
+          cartCurrentItems={this.props.cartCurrentItems}
+          deleteTheItem={this.props.deleteTheItem}
         />
       </div>
     );

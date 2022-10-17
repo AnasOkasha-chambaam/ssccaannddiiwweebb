@@ -28,7 +28,7 @@ export default class cartIcon extends Component {
         </svg>
         <span
           style={{
-            display: "flex",
+            display: this.props.cartItemsNumber === false ? "none" : "flex",
             alignItems: "center",
             justifyContent: "center",
             justifyItems: "center",

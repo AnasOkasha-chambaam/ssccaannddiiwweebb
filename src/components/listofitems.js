@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SingleItem from "./singleitem";
 
-export default class listofitems extends Component {
+export default class ListOfItems extends Component {
   render() {
     return (
       <ul
@@ -22,6 +22,12 @@ export default class listofitems extends Component {
                   key={categoryItem.id}
                   currentCurrency={this.props.currentCurrency}
                   categoryItem={categoryItem}
+                  onCart={
+                    this.props.cartCurrentItems.filter((one) => {
+                      return one.id === this.state.itemId;
+                    }).length !== 0
+                  }
+                  deleteTheItem={this.props.deleteTheItem}
                 />
               );
             })
