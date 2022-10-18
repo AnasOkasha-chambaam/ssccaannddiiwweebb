@@ -42,7 +42,8 @@ export default class SingleItem extends Component {
           <div
             className={
               "hide add-to-cart-icon" +
-              (this.props.categoryItem.inStock ? " out-of-stock" : "")
+              (this.props.categoryItem.inStock ? " out-of-stock" : "") +
+              (this.props.onCart ? " delete" : "")
             }
             onClick={(e) => {
               e.preventDefault();
@@ -54,19 +55,20 @@ export default class SingleItem extends Component {
                  * It happens before adding the item to cart
                  */
                 let currentValsObj = this.setItemValues();
-                console.log(currentValsObj);
                 let selectedAtt = [],
                   attNames = Object.keys(currentValsObj).sort();
                 attNames.forEach((name) => {
                   selectedAtt.push(currentValsObj[name]);
                 });
-                console.log(selectedAtt);
-                // this.props.addSelectedAttToItemInfo(JSON.stringify(selectedAtt));
+                let itemToBeAdded = {
+                  ...this.props.categoryItem,
+                  cartSelectedAtt: currentValsObj,
+                };
+                this.props.addItemWithNewAttToCart(itemToBeAdded);
                 // this.props.addSelectedAttToItemInfo(this.state.currentValsObj);
                 return;
               }
-              this.props.deleteTheItem(this.props.item.id);
-              console.log("Toggle");
+              this.props.deleteTheItem(this.props.categoryItem.id);
             }}
           >
             <AddToCartIcon cartItemsNumber={false} />

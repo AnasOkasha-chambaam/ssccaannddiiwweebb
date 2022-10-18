@@ -148,6 +148,7 @@ export default class App extends Component {
   }
 
   addItemWithNewAttToCart(theItem) {
+    // console.log("THE ITEM", theItem);
     let cartCurrentItems = [...this.state.cartCurrentItems];
     cartCurrentItems.forEach((one, index) => {
       if (one.id === theItem.id) {
@@ -280,6 +281,7 @@ export default class App extends Component {
                     }
                     currentCurrency={this.state.currentCurrency}
                     cartCurrentItems={this.state.cartCurrentItems}
+                    addItemWithNewAttToCart={this.addItemWithNewAttToCart}
                     deleteTheItem={this.deleteTheItem}
                   />
                 }

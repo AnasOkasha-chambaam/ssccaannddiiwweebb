@@ -24,9 +24,10 @@ export default class ListOfItems extends Component {
                   categoryItem={categoryItem}
                   onCart={
                     this.props.cartCurrentItems.filter((one) => {
-                      return one.id === this.state.itemId;
+                      return one.id === categoryItem.id;
                     }).length !== 0
                   }
+                  addItemWithNewAttToCart={this.props.addItemWithNewAttToCart}
                   deleteTheItem={this.props.deleteTheItem}
                 />
               );

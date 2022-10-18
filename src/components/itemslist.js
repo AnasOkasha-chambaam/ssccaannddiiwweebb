@@ -24,6 +24,7 @@ export default class ItemsList extends Component {
           currentCategoryItemsArr={this.props.currentCategoryItemsArr}
           currentCurrency={this.props.currentCurrency}
           cartCurrentItems={this.props.cartCurrentItems}
+          addItemWithNewAttToCart={this.props.addItemWithNewAttToCart}
           deleteTheItem={this.props.deleteTheItem}
         />
       </div>

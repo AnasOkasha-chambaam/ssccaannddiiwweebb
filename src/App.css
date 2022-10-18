@@ -326,7 +326,9 @@ body {
   font-size: 24px;
   color: #8d8f9a;
 }
-
+.item-cart.single-item {
+  overflow: hidden;
+}
 .add-to-cart-icon {
   height: unset;
   width: unset;
@@ -334,13 +336,23 @@ body {
   width: 52px; */
   position: absolute;
   top: 82.5%;
-  right: 12%;
+  right: -12%;
   left: unset;
   border-radius: 50%;
   cursor: pointer;
   transform: translateY(-50%);
   transition: 0.3s;
+  opacity: 0;
+  pointer-events: none;
+}
+.item-cart.single-item:hover .add-to-cart-icon {
+  right: 12%;
+  opacity: 1;
+  pointer-events: all;
 }
 .add-to-cart-icon:hover {
   transform: translateY(-50%) scale(1.1);
+}
+.add-to-cart-icon.delete svg circle {
+  fill: #d90429;
 }
