@@ -4,7 +4,7 @@ import RightInfo from "./iteminforightside";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri: "https://online-shopping-backend.anasite.me/graphql",
   cache: new InMemoryCache(),
 });
 
